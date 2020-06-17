@@ -2,9 +2,11 @@ import random
 from snake import snake
 from food import food
 import pygame
+import pygame.freetype
 
 
 pygame.init()
+myfont = pygame.freetype.SysFont("Arial", 20)
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -23,6 +25,10 @@ while RUNNING:
 
 
     screen.fill((255, 150, 255))
+
+    TEXT = "Score: " + str(snake.snake_length)
+    text_surface, rect = myfont.render(TEXT, (255, 255, 255))
+    screen.blit(text_surface, (10, 10))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -47,7 +53,7 @@ while RUNNING:
         food.spawn()
 
     if snake.crashed():
-        print("You died")
+        print("You died with a score of:", snake.snake_length)
         RUNNING = False
 
     pygame.display.update()
